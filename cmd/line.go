@@ -22,54 +22,59 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"net/http"
+	"net/url"
+	"strings"
+	"io/ioutil"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
-var message string
-var token string
+var lineCmd = &cobra.Command{
+	Use:   "line",
+	Short: "notify to line",
+	Long: "notify to line",
+	Run: func(cmd *cobra.Command, args []string) {
+		var apiUrl string
+		apiUrl =  "https://notify-api.line.me/api/notify"
+		data := url.Values{"message": {message}}
+		
+		if len(token) == 0 {
+			token = viper.GetString("line_access_token")
+		}
+		
+		req, err := http.NewRequest(
+				"POST",
+				apiUrl,
+		 		strings.NewReader(data.Encode()),
+		)
+	 	if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		
+		client := &http.Client{}
+		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		req.Header.Add("Authorization" ,  "Bearer " + token)
 
-
-var RootCmd = &cobra.Command{
-	Use:   "notify",
-	Short:`This application can notify any chat serviece`,
-	Long: `This application is a simple CLI tool. You can quickly notify to any chat serviece`,
-
-Run: func(cmd *cobra.Command, args []string) {
-	fmt.Printf("{set chat servies}")
+		resp, err := client.Do(req)
+		if err != nil {
+			 	log.Fatal(err)
+		}
+		defer resp.Body.Close()
+		body, err := ioutil.ReadAll(resp.Body)
+			if err != nil {
+				log.Fatal(err)
+		}
+		fmt.Printf("%s\n", body)
+		fmt.Println(resp.Status)
 	},
 }
 
-func Execute() {
-	if err := RootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(-1)
-	}
-}
-
 func init() {
-	cobra.OnInitialize(initConfig)
-	RootCmd.PersistentFlags().StringVarP(&message, "message", "m", "This message is from notify","message")
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.notify.yaml)")
-	RootCmd.PersistentFlags().StringVarP(&token, "token", "t", "", "access token")
-	//viper.BindPFlag("token", RootCmd.PersistentFlags().Lookup("token"))
-	//RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-}
+	RootCmd.AddCommand(lineCmd)
 
-func initConfig() {
-	if cfgFile != "" {
-		viper.SetConfigFile(cfgFile)
-	}
-
-	viper.SetConfigName(".notify")
-	viper.AddConfigPath(os.Getenv("HOME"))
-	viper.AutomaticEnv()
-
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
-	}
 }
