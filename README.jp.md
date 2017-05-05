@@ -1,41 +1,64 @@
-
-# [現在作業中]Notify
+# Notify
 
 Notifyはチャットワーク、LINE、Slackに通知を行うためのシンプルなCLIツールです。
 
-## ToDo
-
-- REEDMEの英訳
-- Slack通知機能の実装
-- チャットワーク通知機能の実装
-- ビルドする
-- ステータスをとる
-
 ## Description
 
-Notifyは、主要なチャットツールに通知を行うためのシンプルなCLIツールです。対応しているチャットサービスはチャットワーク、LINE、Slackです。サブコマンドで、チャットツールを指定します。利用するにあたって、事前にアクセストークンを取得してください。
+Notifyは、主要なチャットツールに通知を行うためのシンプルなCLIツールです。対応しているチャットサービスはチャットワーク、LINEです。サブコマンドで、チャットツールを指定します。利用するにあたって、事前にアクセストークンを取得してください。
 
 ## Demo
+
+
 
 ## Features
 
 - サブコマンドで、チャットサービスを指定して、メッセージとトークンを渡すだけで、通知を行えます。
 - トークンは設定ファイルから読み込むこともできます。
 
+## Exsamle
+
+```bash
+$ notify line -m "sent message to line"
+$ notify chtwk -m "sent message to chatwork"
+```
+
 ## Usage
-line LINE
-chtwk チャットワーク
-slack Slack
-nofify -l 'access token' アクセストークンをセットします。
-notify -m 'message' メッセージ本文になります。省略した場合は、デフォルトで設定されているメッセージが送信されます。
+```bash
+This application is a simple CLI tool.
+You can quickly notify to any chat serviece
+
+Usage:
+  notify [command]
+
+Available Commands:
+  chtwk       notify to chatwork
+  help        Help about any command
+  line        notify to line
+
+Flags:
+      --config string    config file (default is $HOME/.notify.yaml)
+  -h, --help             help for notify
+  -m, --message string   message (default "This message is from notify")
+  -t, --token string     access token
+
+Use "notify [command] --help" for more information about a command.
+```
 
 ## Requirement
 
-- Go
+set your credentials in $HOME/.notify.yaml/credentials :
+
+[default]
+line_access_token: XXXXXX
+chatwork_access_token = XXXXXX
+room_id = XXXXXX
 
 ## Install
 
-以下のコマンドをターミナルにペーストしてください。
+If you have Go development environment:
+```bash
+$ go get github.com/tadaken3/notify
+```
 
 ## Contribution
 
