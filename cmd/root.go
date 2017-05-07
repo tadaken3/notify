@@ -32,15 +32,14 @@ var cfgFile string
 var message string
 var token string
 
-
 var RootCmd = &cobra.Command{
 	Use:   "notify",
 	Short:`This application can notify any chat serviece`,
 	Long: `This application is a simple CLI tool. You can quickly notify to any chat serviece`,
 
-Run: func(cmd *cobra.Command, args []string) {
-	fmt.Printf("{set chat servies}")
-	},
+//Run: func(cmd *cobra.Command, args []string) {
+//	fmt.Printf("Usage: notify <command> [<args>]")
+//	},
 }
 
 func Execute() {
@@ -68,7 +67,6 @@ func initConfig() {
 	viper.AddConfigPath(os.Getenv("HOME"))
 	viper.AutomaticEnv()
 
-	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
