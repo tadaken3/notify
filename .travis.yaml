@@ -1,5 +1,0 @@
-language: go
-
-script:
-- go run main.go line -m "test"
-- go run main.go chtwk -m "test"
