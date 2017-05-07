@@ -1,4 +1,6 @@
 # Notify
+[![Build Status](https://secure.travis-ci.org/tadaken3/notify.png)](https://secure.travis-ci.org/tadaken3/notify)
+
 
 Notifyはチャットワーク、LINE、Slackに通知を行うためのシンプルなCLIツールです。
 

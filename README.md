@@ -1,4 +1,5 @@
 # Notify
+[![Build Status](https://secure.travis-ci.org/tadaken3/notify.png)](https://secure.travis-ci.org/tadaken3/notify)
 
 Notify is simple CLI application to nottify any chat serviece.
 
