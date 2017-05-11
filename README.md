@@ -74,7 +74,7 @@ $ go get github.com/tadaken3/notify
 
 ## Licence
 
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+[MIT](https://github.com/tadaken3/notify/blob/master/LICENSE)
 
 ## Author
 
