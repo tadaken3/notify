@@ -50,10 +50,10 @@ Use "notify [command] --help" for more information about a command.
 
 set your credentials in $HOME/.notify.yaml/credentials :
 
-[default]
-line_access_token: XXXXXX
-chatwork_access_token = XXXXXX
-room_id = XXXXXX
+[default]  
+line_access_token: XXXXXX  
+chatwork_access_token = XXXXXX   
+room_id = XXXXXX　  
 
 ## Install
 
