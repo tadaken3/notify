@@ -65,7 +65,7 @@ func initConfig() {
 	}
 
 	viper.SetConfigName(".notify")
-	if runntime.GOOS == "windows" {
+	if runtime.GOOS == "windows" {
 		viper.AddConfigPath(os.Getenv("HOMEPATH"))
 	} else {
 		viper.AddConfigPath(os.Getenv("HOME"))
