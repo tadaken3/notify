@@ -1,4 +1,4 @@
-// Copyright © 2017 tadaken3 <k.tanaka6057@gmail.com>
+// Copyright c 2017 tadaken3 <k.tanaka6057@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"runtime"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -34,12 +35,12 @@ var token string
 
 var RootCmd = &cobra.Command{
 	Use:   "notify",
-	Short:`This application can notify any chat serviece`,
-	Long: `This application is a simple CLI tool. You can quickly notify to any chat serviece`,
+	Short: `This application can notify any chat serviece`,
+	Long:  `This application is a simple CLI tool. You can quickly notify to any chat serviece`,
 
-//Run: func(cmd *cobra.Command, args []string) {
-//	fmt.Printf("Usage: notify <command> [<args>]")
-//	},
+	//Run: func(cmd *cobra.Command, args []string) {
+	//	fmt.Printf("Usage: notify <command> [<args>]")
+	//	},
 }
 
 func Execute() {
@@ -51,7 +52,7 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	RootCmd.PersistentFlags().StringVarP(&message, "message", "m", "This message is from notify","message")
+	RootCmd.PersistentFlags().StringVarP(&message, "message", "m", "This message is from notify", "message")
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.notify.yaml)")
 	RootCmd.PersistentFlags().StringVarP(&token, "token", "t", "", "access token")
 	//viper.BindPFlag("token", RootCmd.PersistentFlags().Lookup("token"))
@@ -64,7 +65,12 @@ func initConfig() {
 	}
 
 	viper.SetConfigName(".notify")
-	viper.AddConfigPath(os.Getenv("HOME"))
+	if runntime.GOOS == "windows" {
+		viper.AddConfigPath(os.Getenv("HOMEPATH"))
+	} else {
+		viper.AddConfigPath(os.Getenv("HOME"))
+	}
+
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err == nil {
