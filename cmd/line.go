@@ -22,12 +22,12 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
-	"os"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
-	"io/ioutil"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -36,38 +36,38 @@ import (
 var lineCmd = &cobra.Command{
 	Use:   "line",
 	Short: "notify to line",
-	Long: "notify to line",
+	Long:  "notify to line",
 	Run: func(cmd *cobra.Command, args []string) {
 		var apiUrl string
-		apiUrl =  "https://notify-api.line.me/api/notify"
+		apiUrl = "https://notify-api.line.me/api/notify"
 		data := url.Values{"message": {message}}
-		
+
 		if len(token) == 0 {
 			token = viper.GetString("line_access_token")
 		}
-		
+
 		req, err := http.NewRequest(
-				"POST",
-				apiUrl,
-		 		strings.NewReader(data.Encode()),
+			"POST",
+			apiUrl,
+			strings.NewReader(data.Encode()),
 		)
-	 	if err != nil {
+		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
-		
+
 		client := &http.Client{}
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-		req.Header.Add("Authorization" ,  "Bearer " + token)
+		req.Header.Add("Authorization", "Bearer "+token)
 
 		resp, err := client.Do(req)
 		if err != nil {
-			 	log.Fatal(err)
+			log.Fatal(err)
 		}
 		defer resp.Body.Close()
 		body, err := ioutil.ReadAll(resp.Body)
-			if err != nil {
-				log.Fatal(err)
+		if err != nil {
+			log.Fatal(err)
 		}
 		fmt.Printf("%s\n", body)
 		fmt.Println(resp.Status)

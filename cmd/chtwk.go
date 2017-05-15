@@ -21,13 +21,13 @@
 package cmd
 
 import (
-	"fmt"
-	"log"
-	"os"
 	"bytes"
+	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
+	"os"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -38,38 +38,38 @@ var roomId string
 var chtwkCmd = &cobra.Command{
 	Use:   "chtwk",
 	Short: "notify to chatwork",
-	Long: "notify to chatwork",
+	Long:  "notify to chatwork",
 	Run: func(cmd *cobra.Command, args []string) {
-		
+
 		if len(roomId) == 0 {
 			roomId = viper.GetString("room_id")
 		}
-		
+
 		apiUrl := "https://api.chatwork.com/"
 		resource := "/v1/rooms/" + roomId + "/messages"
 
 		u, _ := url.ParseRequestURI(apiUrl)
 		u.Path = resource
-		urlStr := fmt.Sprintf("%v", u) 
-		
+		urlStr := fmt.Sprintf("%v", u)
+
 		data := url.Values{}
 		data.Set("body", message)
 		//fmt.Println(data.Encode())
 
 		req, err := http.NewRequest(
-				"POST",
-				urlStr,
-				bytes.NewBufferString(data.Encode()),
+			"POST",
+			urlStr,
+			bytes.NewBufferString(data.Encode()),
 		)
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
-		
+
 		if len(token) == 0 {
 			token = viper.GetString("chatwork_access_token")
 		}
-		
+
 		client := &http.Client{}
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 		req.Header.Add("X-ChatWorkToken", token)
@@ -78,14 +78,14 @@ var chtwkCmd = &cobra.Command{
 		if err != nil {
 			log.Fatal(err)
 		}
-    	defer resp.Body.Close()
-    	body, err := ioutil.ReadAll(resp.Body)
-			if err != nil {
-				log.Fatal(err)
+		defer resp.Body.Close()
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			log.Fatal(err)
 		}
-    	fmt.Printf("%s\n", body)
-    	fmt.Println(resp.Status)
-    	
+		fmt.Printf("%s\n", body)
+		fmt.Println(resp.Status)
+
 	},
 }
 
