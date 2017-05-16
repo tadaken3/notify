@@ -1,3 +1,6 @@
+#folder
+bin/
+
 *~
 .DS_Store
 .exe
