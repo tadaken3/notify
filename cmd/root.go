@@ -38,9 +38,7 @@ var RootCmd = &cobra.Command{
 	Short: `This application can notify any chat serviece`,
 	Long:  `This application is a simple CLI tool. You can quickly notify to any chat serviece`,
 
-	//Run: func(cmd *cobra.Command, args []string) {
-	//	fmt.Printf("Usage: notify <command> [<args>]")
-	//	},
+
 }
 
 func Execute() {
@@ -55,8 +53,6 @@ func init() {
 	RootCmd.PersistentFlags().StringVarP(&message, "message", "m", "This message is from notify", "message")
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.notify.yaml)")
 	RootCmd.PersistentFlags().StringVarP(&token, "token", "t", "", "access token")
-	//viper.BindPFlag("token", RootCmd.PersistentFlags().Lookup("token"))
-	//RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 func initConfig() {
