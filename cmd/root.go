@@ -37,8 +37,6 @@ var RootCmd = &cobra.Command{
 	Use:   "notify",
 	Short: `This application can notify any chat serviece`,
 	Long:  `This application is a simple CLI tool. You can quickly notify to any chat serviece`,
-
-
 }
 
 func Execute() {
@@ -53,6 +51,7 @@ func init() {
 	RootCmd.PersistentFlags().StringVarP(&message, "message", "m", "This message is from notify", "message")
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.notify.yaml)")
 	RootCmd.PersistentFlags().StringVarP(&token, "token", "t", "", "access token")
+	RootCmd.AddCommand(versionCmd)
 }
 
 func initConfig() {
@@ -72,4 +71,13 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
+}
+
+var versionCmd = &cobra.Command{
+	Use:   "version",
+	Short: "Print the version number of notify",
+	Long:  `All software has versions. This is notify`,
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("notify v0.0.2")
+	},
 }
