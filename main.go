@@ -1,4 +1,4 @@
-// Copyright © 2017 tadaken3 <k.tanaka6057@gmail.com>
+// Copyright 諱ｯ 2017 tadaken3 <k.tanaka6057@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal

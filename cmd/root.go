@@ -32,6 +32,7 @@ import (
 var cfgFile string
 var message string
 var token string
+var version string
 
 var RootCmd = &cobra.Command{
 	Use:   "notify",
@@ -78,6 +79,6 @@ var versionCmd = &cobra.Command{
 	Short: "Print the version number of notify",
 	Long:  `All software has versions. This is notify`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("notify v0.0.2")
+		fmt.Println("notify version:" + version)
 	},
 }
