@@ -10,7 +10,7 @@ Notifyは、主要なチャットツールに通知を行うためのシンプ�
 
 ## Demo
 
-
+![demo](https://github.com/tadaken3/notify/blob/master/demo.gif)
 
 ## Features
 
@@ -22,6 +22,7 @@ Notifyは、主要なチャットツールに通知を行うためのシンプ�
 ```bash
 $ notify line -m "sent message to line"
 $ notify chtwk -m "sent message to chatwork"
+$ notify slack -m "sent message to slack"
 ```
 
 ## Usage
@@ -36,6 +37,8 @@ Available Commands:
   chtwk       notify to chatwork
   help        Help about any command
   line        notify to line
+  slack       notify to slact
+  version     Print the version number of notify
 
 Flags:
       --config string    config file (default is $HOME/.notify.yaml)
