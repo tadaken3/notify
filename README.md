@@ -9,7 +9,7 @@ Notify is a simple CLI tool for notifying major chat tools. Supported chat servi
 
 ## Demo
 
-
+![demo](https://github.com/tadaken3/notify/blob/master/demo.gif)
 
 ## Features
 
@@ -21,6 +21,7 @@ Notify is a simple CLI tool for notifying major chat tools. Supported chat servi
 ```bash
 $ notify line -m "sent message to line"
 $ notify chtwk -m "sent message to chatwork"
+$ notify slack -m "sent message to slack"
 ```
 
 ## Usage
@@ -36,6 +37,9 @@ Available Commands:
   chtwk       notify to chatwork
   help        Help about any command
   line        notify to line
+  slack       notify to slact
+  version     Print the version number of notify
+  
 
 Flags:
       --config string    config file (default is $HOME/.notify.yaml)
@@ -54,6 +58,8 @@ set your credentials in $HOME/.notify.yaml/credentials :
 line_access_token: XXXXXX  
 chatwork_access_token = XXXXXX   
 room_id = XXXXXX　  
+slack_token = XXXXXX　  
+channel = genneral
 
 ## Install
 
