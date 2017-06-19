@@ -63,7 +63,7 @@ channel = genneral
 
 ## Install
 
-Just get a newest binary for your os/arch [release page](https://github.com/tadaken3/notify/releases).
+リリースページからバイナリをダウンロードしてください。[release page](https://github.com/tadaken3/notify/releases).
 
 If you have Go development environment:
 ```bash
