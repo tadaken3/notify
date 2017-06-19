@@ -1,4 +1,4 @@
-// Copyright 息 2017 tadaken3 <k.tanaka6057@gmail.com>
+// Copyright © 2017 tadaken3 <k.tanaka6057@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,75 +21,58 @@
 package cmd
 
 import (
-	"bytes"
 	"fmt"
-	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"os"
+	"io/ioutil"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
-var roomId string
+var channel string
 
-var chtwkCmd = &cobra.Command{
-	Use:   "chtwk",
-	Short: "notify to chatwork",
-	Long:  "notify to chatwork",
+// slackCmd represents the slack command
+var slackCmd = &cobra.Command{
+	Use:   "slack",
+	Short: "notify to slact",
+	Long:  "notify to slact",
 	Run: func(cmd *cobra.Command, args []string) {
+		var apiUrl string
+		baseUrl := "https://slack.com/api/chat.postMessage?token="
+		message = url.QueryEscape(message)
 
-		if len(roomId) == 0 {
-			roomId = viper.GetString("room_id")
+		if len(token) == 0 {
+			token = viper.GetString("slack_token")
 		}
+		
+		if len(channel) == 0 {
+			roomId = viper.GetString("channel")
+		}
+		
+		
+		apiUrl = baseUrl + token + "&channel=" + channel + "&text=" + message
+		req, err := http.Get(apiUrl)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		fmt.Println("status:", req.Status)
 
-		apiUrl := "https://api.chatwork.com/"
-		resource := "/v2/rooms/" + roomId + "/messages"
+		body, err := ioutil.ReadAll(req.Body)
 
-		u, _ := url.ParseRequestURI(apiUrl)
-		u.Path = resource
-		urlStr := fmt.Sprintf("%v", u)
-
-		data := url.Values{}
-		data.Set("body", message)
-		//fmt.Println(data.Encode())
-
-		req, err := http.NewRequest(
-			"POST",
-			urlStr,
-			bytes.NewBufferString(data.Encode()),
-		)
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
 
-		if len(token) == 0 {
-			token = viper.GetString("chatwork_access_token")
-		}
-
-		client := &http.Client{}
-		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-		req.Header.Add("X-ChatWorkToken", token)
-
-		resp, err := client.Do(req)
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer resp.Body.Close()
-		body, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Printf("%s\n", body)
-		fmt.Println(resp.Status)
+		fmt.Println(string(body))
 
 	},
 }
 
 func init() {
-	RootCmd.AddCommand(chtwkCmd)
-	chtwkCmd.Flags().StringVarP(&roomId, "roomId", "r", "", "chatwork room id")
+	RootCmd.AddCommand(slackCmd)
+	slackCmd.Flags().StringVarP(&channel, "channel", "c", "general", "slack channel")
 }
