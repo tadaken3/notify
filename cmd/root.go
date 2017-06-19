@@ -32,7 +32,8 @@ import (
 var cfgFile string
 var message string
 var token string
-var version string
+
+const version = "0.0.4"
 
 var RootCmd = &cobra.Command{
 	Use:   "notify",
