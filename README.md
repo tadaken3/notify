@@ -1,4 +1,6 @@
 # Notify
+
+[![Join the chat at https://gitter.im/notify-tadaken3/Lobby](https://badges.gitter.im/notify-tadaken3/Lobby.svg)](https://gitter.im/notify-tadaken3/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://secure.travis-ci.org/tadaken3/notify.png)](https://secure.travis-ci.org/tadaken3/notify)
 
 Notify is simple CLI application to nottify any chat serviece.
