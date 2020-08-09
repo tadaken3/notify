@@ -18,7 +18,7 @@ Notify is a simple CLI tool for notifying major chat tools. Supported chat servi
 - You can specify a chat service with a subcommand and notify by just passing a message and a token
 - The token can also be read from the configuration file.
 
-## Exsamle
+## Example
 
 ```bash
 $ notify line -m "sent message to line"
@@ -30,7 +30,7 @@ $ notify slack -m "sent message to slack"
 
 ```bash
 This application is a simple CLI tool.
-You can quickly notify to any chat serviece
+You can quickly notify to any chat service
 
 Usage:
   notify [command]
@@ -39,7 +39,7 @@ Available Commands:
   chtwk       notify to chatwork
   help        Help about any command
   line        notify to line
-  slack       notify to slact
+  slack       notify to slack
   version     Print the version number of notify
   
 
